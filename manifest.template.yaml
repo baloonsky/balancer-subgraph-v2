@@ -203,7 +203,7 @@ dataSources:
           file: ./abis/StablePool.json
       eventHandlers:
         - event: PoolCreated(indexed address)
-          handler: handleNewStablePoolV2
+          handler: handleNewStablePool
   {{/if}}
   {{#if MetaStablePoolFactory}}
   - kind: ethereum/contract
@@ -426,7 +426,40 @@ dataSources:
           file: ./abis/StablePool.json
       eventHandlers:
         - event: PoolCreated(indexed address)
-          handler: handleNewComposableStablePool
+          handler: handleNewStablePhantomPoolV2
+  {{/if}}
+  {{#if ComposableStablePoolAMPModifiedFactory}}
+  - kind: ethereum/contract
+    name: ComposableStablePoolAMPModifiedFactory
+    network: {{network}}
+    source:
+      address: '{{ComposableStablePoolAMPModifiedFactory.address}}'
+      abi: ComposableStablePoolFactory
+      startBlock: {{ComposableStablePoolAMPModifiedFactory.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/mappings/poolFactory.ts
+      entities:
+        - Balancer
+        - Pool
+      abis:
+        - name: Vault
+          file: ./abis/Vault.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: WeightedPool
+          file: ./abis/WeightedPool.json
+        - name: ComposableStablePoolFactory
+          file: ./abis/ComposableStablePoolFactory.json
+        - name: ComposableStablePool
+          file: ./abis/ComposableStablePool.json
+        - name: StablePool
+          file: ./abis/StablePool.json
+      eventHandlers:
+        - event: PoolCreated(indexed address)
+          handler: handleNewStablePhantomPoolV2
   {{/if}}
   {{#if AaveLinearPoolFactory}}
   - kind: ethereum/contract
@@ -1138,4 +1171,3 @@ templates:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-    
