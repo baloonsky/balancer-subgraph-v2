@@ -431,7 +431,7 @@ dataSources:
   {{#if ComposableStablePoolAMPModifiedFactory}}
   - kind: ethereum/contract
       name: ComposableStablePoolAMPModifiedFactory
-      network: {{network }}
+      network: {{network}}
     source:
       address: '{{ComposableStablePoolAMPModifiedFactory.address}}'
       abi: ComposableStablePoolFactory
