@@ -428,7 +428,7 @@ dataSources:
         - event: PoolCreated(indexed address)
           handler: handleNewComposableStablePool
   {{/if}}
-  {{ #if ComposableStablePoolFactory}}
+  {{ #if ComposableStablePoolAMPModifiedFactory}}
   - kind: ethereum/contract
       name: ComposableStablePoolAMPModifiedFactory
       network: {{network }}
